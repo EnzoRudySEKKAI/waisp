@@ -2,98 +2,101 @@
 
 ## Overview
 
-waïsp is a self-hosted A2A (Agent-to-Agent) collaboration infrastructure designed to connect personal AI assistants inside enterprise environments.
+waïsp is a self-hosted A2A (Agent-to-Agent) collaboration infrastructure that enables every person inside an organization to have a personal AI assistant capable of acting locally and collaborating with other assistants.
 
-The goal is to create a network of personal assistants where every person owns an assistant capable of understanding their context, interacting with their local environment, and collaborating with other assistants.
+The goal is not to build another company chatbot. The goal is to create a network of personal AI representatives connected through an enterprise Collaboration Brain.
 
-Each assistant communicates through an A2A protocol and is coordinated by a company-level Collaboration Brain.
-
----
-
-# Core Vision
-
-The future of enterprise collaboration will involve humans working with personal AI representatives.
-
-waïsp enables assistants to:
-
-- understand their users
-- execute local actions
-- communicate with other assistants
-- access company knowledge
-- coordinate work
-- preserve organizational context
+Each person owns one assistant. The assistant understands its user's context, interacts with the local machine through a harness, and communicates with other assistants when collaboration is required.
 
 ---
 
-# Personal Assistant
+# The Problem
+
+Current enterprise AI tools are mainly centralized assistants:
+
+- one chatbot for everyone
+- limited personal context
+- weak collaboration between users
+- isolated knowledge sources
+- no autonomous communication between AI agents
+
+waïsp introduces a different model:
+
+> Every employee has a trusted AI representative connected to the collective intelligence of the organization.
+
+---
+
+# Core Principles
 
 ## One Person = One Assistant
 
-Each user owns one personal assistant representing them inside the organization.
+Every user has exactly one personal assistant identity.
 
-The assistant maintains:
+The assistant represents the user and maintains:
 
-- preferences
+- personal preferences
 - communication style
-- languages
+- preferred languages
 - working habits
-- personal knowledge
-- private context
+- private knowledge
+- personal history
+
+The assistant follows the user across different projects and domains.
 
 ---
 
-# Memory Model
+# Memory Architecture
 
-waïsp separates personal memory from company knowledge.
+waïsp separates personal intelligence from company intelligence.
 
 ## Personal Memory
 
-Private memory belonging to the user:
+Private user memory:
 
 - preferences
 - habits
-- private information
-- personal history
-- individual working context
+- private notes
+- personal workflows
+- individual context
 
-This memory follows the user everywhere.
+This memory belongs only to the user.
 
-## Company Knowledge Memory
+## Company Knowledge Brain
 
-The shared knowledge belongs to the Company Brain.
+Each company owns one Collaboration Brain containing a centralized knowledge system.
 
-The Company Brain contains a centralized RAG system containing enterprise knowledge while enforcing access restrictions based on:
+The Brain includes a global RAG layer containing enterprise knowledge.
+
+The RAG is not duplicated by domain. Instead, access is controlled dynamically through:
 
 - user permissions
 - domain membership
-- team access
+- team permissions
 - project access
-- security rules
+- security policies
 
-The RAG is not duplicated per domain. Instead, the Brain manages one global knowledge layer with controlled retrieval depending on the user's authorized context.
-
-When changing domains, the assistant keeps personal memory but receives different accessible knowledge depending on the active domain and permissions.
+The assistant retrieves only information that the user is authorized to access.
 
 ---
 
 # Company Brain
 
-Each company runs its own self-hosted Collaboration Brain.
+Each organization runs its own self-hosted Company Brain.
 
-The Brain is the central intelligence layer of the organization.
+The Brain is the coordination and knowledge layer of the company.
 
-It manages:
+Responsibilities:
 
-- identities
-- assistants
-- domains
-- permissions
-- conversations
-- logs
-- collective memory
-- centralized RAG knowledge base
+- assistant registry
+- user identities
+- domain management
+- permission system
+- conversation history
+- A2A message logs
+- company memory
+- centralized RAG
 
-The Brain provides a shared context while maintaining strict information boundaries between users and teams.
+The Brain allows assistants to discover who exists, who is responsible for what, and what information they can access.
 
 ---
 
@@ -112,88 +115,145 @@ Company
 └── Marketing
 ```
 
-Domains define organizational structure and access rules.
-
-Each domain has:
+Domains define organizational context:
 
 - members
+- responsibilities
 - permissions
 - accessible knowledge
-- documents
 - conversations
-- context
 
-The knowledge itself remains stored in the Company Brain RAG, while retrieval is filtered according to domain and user permissions.
+The same assistant can participate in multiple domains while maintaining separate contexts.
 
 ---
 
-# Harness
+# Personal Harness
 
-The assistant runs through a local harness inspired by tools such as Claude Code.
+The assistant operates through a local harness.
+
+The first interface is TUI-first, inspired by tools such as Claude Code and OpenCode.
 
 The harness provides:
 
-- terminal interaction
-- AI assistant interface
+- terminal interface
+- AI conversation
 - local machine access
-- file operations
+- file interaction
 - command execution
-- context awareness
+- local context awareness
 
-The goal is: one harness to interact with the assistant and accomplish work.
+The objective is:
 
-The first implementation will use a DeepSeek-based harness approach, with the possibility of supporting additional harness providers later.
+> One harness to interact with the assistant and accomplish work.
+
+The first integration uses a DeepSeek-based harness approach. waïsp adds the collaboration layer around the harness instead of rebuilding an entire execution environment.
 
 ---
 
 # A2A Collaboration
 
-Assistants communicate using an existing A2A protocol.
+Assistants communicate through an existing A2A protocol.
 
-Flow:
+Example flow:
 
 ```
 Assistant A
-    |
- A2A Protocol
-    |
+     |
+     | A2A
+     |
 Company Brain
-    |
+     |
+     |
 Assistant B
 ```
 
 The Brain handles:
 
 - assistant discovery
-- permission validation
-- conversation history
-- context routing
-- communication logs
+- permission checks
+- routing
+- conversation storage
+- context management
 
-If the Brain is unavailable, assistants can temporarily use cached permissions and synchronize later.
+If the Brain is temporarily unavailable, assistants can operate using their latest cached permissions and synchronize later.
 
 ---
 
-# Deployment
+# Example Use Cases
 
-## Phase 1: LAN
+## Intelligent Development Notification
 
-The Brain runs inside the company's local network.
+A developer pushes new code.
+
+The assistant analyzes the event and checks the company context.
+
+It knows:
+
+- who owns the backend
+- who needs information
+- who should not be notified
+
+The assistant contacts only relevant assistants.
+
+If the receiver prefers another language, the assistant adapts the communication automatically.
+
+---
+
+## Automatic Problem Resolution
+
+A user encounters a server issue.
+
+The harness provides local context.
+
+The assistant identifies the problem and discovers the responsible person through the Company Brain.
+
+It can ask permission from the user before contacting the responsible assistant.
+
+The other assistant can answer with its current state, allowing collaboration without unnecessary human coordination.
+
+---
+
+# Deployment Model
+
+## Phase 1 — LAN
+
+The first deployment target is local enterprise networks.
 
 Benefits:
 
 - privacy
-- data control
-- enterprise adoption
+- self-hosting
+- data ownership
+- low latency
 
-## Phase 2: Online
+## Phase 2 — Online
 
-The Brain becomes accessible through the internet for distributed organizations.
+Future versions can support internet-accessible Company Brains for distributed organizations.
+
+---
+
+# Technical Direction
+
+Initial focus:
+
+- Go-based core infrastructure
+- TUI applications
+- DeepSeek harness integration
+- A2A communication
+- self-hosted Company Brain
+- modular architecture
+
+The system should remain extensible:
+
+- multiple harness providers
+- additional AI models
+- new tools
+- enterprise integrations
 
 ---
 
 # Long-Term Goal
 
-waïsp aims to become the collaboration infrastructure where humans and AI assistants work together.
+waïsp aims to become the collaboration layer between humans and AI agents.
 
-Every person has a trusted AI representative connected to a shared company intelligence.
+A future enterprise is not only a group of people using software. It is a network of people and assistants sharing context, coordinating work, and preserving organizational intelligence.
