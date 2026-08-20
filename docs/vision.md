@@ -44,7 +44,7 @@ The assistant maintains:
 
 # Memory Model
 
-waïsp uses two memory layers.
+waïsp separates personal memory from company knowledge.
 
 ## Personal Memory
 
@@ -54,21 +54,25 @@ Private memory belonging to the user:
 - habits
 - private information
 - personal history
+- individual working context
 
 This memory follows the user everywhere.
 
-## Domain Memory
+## Company Knowledge Memory
 
-Knowledge belonging to an organization context:
+The shared knowledge belongs to the Company Brain.
 
-- company
-- teams
-- projects
-- documentation
-- decisions
-- responsibilities
+The Company Brain contains a centralized RAG system containing enterprise knowledge while enforcing access restrictions based on:
 
-When changing domains, the assistant keeps personal memory but switches domain context.
+- user permissions
+- domain membership
+- team access
+- project access
+- security rules
+
+The RAG is not duplicated per domain. Instead, the Brain manages one global knowledge layer with controlled retrieval depending on the user's authorized context.
+
+When changing domains, the assistant keeps personal memory but receives different accessible knowledge depending on the active domain and permissions.
 
 ---
 
@@ -76,7 +80,9 @@ When changing domains, the assistant keeps personal memory but switches domain c
 
 Each company runs its own self-hosted Collaboration Brain.
 
-The Brain manages:
+The Brain is the central intelligence layer of the organization.
+
+It manages:
 
 - identities
 - assistants
@@ -85,9 +91,9 @@ The Brain manages:
 - conversations
 - logs
 - collective memory
-- RAG knowledge bases
+- centralized RAG knowledge base
 
-The Brain is the shared intelligence layer of the organization.
+The Brain provides a shared context while maintaining strict information boundaries between users and teams.
 
 ---
 
@@ -106,14 +112,18 @@ Company
 └── Marketing
 ```
 
-Each domain has its own:
+Domains define organizational structure and access rules.
+
+Each domain has:
 
 - members
 - permissions
-- memory
+- accessible knowledge
 - documents
-- RAG context
 - conversations
+- context
+
+The knowledge itself remains stored in the Company Brain RAG, while retrieval is filtered according to domain and user permissions.
 
 ---
 
@@ -154,10 +164,11 @@ Assistant B
 
 The Brain handles:
 
-- discovery
-- permissions
-- history
-- context
+- assistant discovery
+- permission validation
+- conversation history
+- context routing
+- communication logs
 
 If the Brain is unavailable, assistants can temporarily use cached permissions and synchronize later.
 
